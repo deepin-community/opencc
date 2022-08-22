@@ -1,0 +1,37 @@
+From: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
+Date: Sat, 6 Mar 2021 17:45:20 +0800
+Subject: Don't fetch remote images when reading docs on disk
+
+Forwarded: no
+Last-Update: 2021-09-18
+
+This fixes a privacy breach previously reported as Lintian warnings
+---
+ README.md | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/README.md b/README.md
+index 4af8d37..113773a 100644
+--- a/README.md
++++ b/README.md
+@@ -1,14 +1,14 @@
+ # Open Chinese Convert 開放中文轉換
+ 
+-[![Travis](https://img.shields.io/travis/BYVoid/OpenCC.svg)](https://travis-ci.org/BYVoid/OpenCC)
+-[![AppVeyor](https://img.shields.io/appveyor/ci/Carbo/OpenCC.svg)](https://ci.appveyor.com/project/Carbo/OpenCC)
+-[![C/C++ CI](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml)
+-[![Node.js CI](https://github.com/BYVoid/OpenCC/actions/workflows/nodejs.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/nodejs.yml)
+-[![Python CI](https://github.com/BYVoid/OpenCC/actions/workflows/python.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/python.yml)
++[[Travis](https://travis-ci.org/BYVoid/OpenCC)]
++[[AppVeyor](https://ci.appveyor.com/project/Carbo/OpenCC)]
++[[C/C++ CI](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml)]
++[[Node.js CI](https://github.com/BYVoid/OpenCC/actions/workflows/nodejs.yml)]
++[[Python CI](https://github.com/BYVoid/OpenCC/actions/workflows/python.yml)]
+ 
+ ## Introduction 介紹
+ 
+-![OpenCC](https://opencc.byvoid.com/img/opencc.png)
++OpenCC
+ 
+ Open Chinese Convert (OpenCC, 開放中文轉換) is an opensource project for conversions between Traditional Chinese, Simplified Chinese and Japanese Kanji (Shinjitai). It supports character-level and phrase-level conversion, character variant conversion and regional idioms among Mainland China, Taiwan and Hong Kong. This is not translation tool between Mandarin and Cantonese, etc.
+ 

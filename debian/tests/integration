@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -ex
+
+cd "$(dirname "$0")"
+mkdir -p build
+cd build
+cmake ..
+make
+make test
+cd ..
+rm -rf build

@@ -1,0 +1,65 @@
+From: Boyuan Yang <byang@debian.org>
+Date: Thu, 25 Jun 2020 20:32:44 -0400
+Subject: data/: Explicitly use python3
+
+Before "python" is default to python3, this patch should be kept.
+
+Last-Update: 2020-06-25
+---
+ data/scripts/find_target.py | 2 +-
+ data/scripts/merge.py       | 2 +-
+ data/scripts/reverse.py     | 2 +-
+ data/scripts/sort.py        | 2 +-
+ data/scripts/sort_all.py    | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/data/scripts/find_target.py b/data/scripts/find_target.py
+index 4244949..7b2b477 100755
+--- a/data/scripts/find_target.py
++++ b/data/scripts/find_target.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # -*- coding: utf-8 -*-
+ 
+ import sys
+diff --git a/data/scripts/merge.py b/data/scripts/merge.py
+index 680c90e..01fcf51 100755
+--- a/data/scripts/merge.py
++++ b/data/scripts/merge.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # -*- coding: utf-8 -*-
+ 
+ import codecs
+diff --git a/data/scripts/reverse.py b/data/scripts/reverse.py
+index 746f887..a87ae46 100755
+--- a/data/scripts/reverse.py
++++ b/data/scripts/reverse.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # -*- coding: utf-8 -*-
+ 
+ import sys
+diff --git a/data/scripts/sort.py b/data/scripts/sort.py
+index f7d4dc5..6ad6e8c 100755
+--- a/data/scripts/sort.py
++++ b/data/scripts/sort.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # -*- coding: utf-8 -*-
+ import sys
+ 
+diff --git a/data/scripts/sort_all.py b/data/scripts/sort_all.py
+index 20d82fd..11bc4c9 100755
+--- a/data/scripts/sort_all.py
++++ b/data/scripts/sort_all.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ # -*- coding: utf-8 -*-
+ import glob
+ import sys

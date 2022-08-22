@@ -1,0 +1,37 @@
+From: IME Packaging Team <pkg-ime-devel@lists.alioth.debian.org>
+Date: Mon, 9 Oct 2017 22:02:39 +0800
+Subject: use-cmake-install-libdir
+
+Update 2021-09-18: Also use GNUInstallDirs.
+
+Last-Update: 2021-09-18
+---
+ CMakeLists.txt | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 07e3745..094a9c7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -17,10 +17,11 @@
+ #
+ 
+ ######## Project settings
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 3.0.2)
+ set (PACKAGE_NAME opencc)
+ project (${PACKAGE_NAME} CXX)
+ include (CTest)
++include (GNUInstallDirs)
+ 
+ ######## Options
+ option(BUILD_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
+@@ -80,7 +81,7 @@ set (DIR_PREFIX ${CMAKE_INSTALL_PREFIX})
+ set (DIR_INCLUDE ${DIR_PREFIX}/include/)
+ set (DIR_SHARE ${DIR_PREFIX}/share/)
+ set (DIR_ETC ${DIR_PREFIX}/etc/)
+-set (DIR_LIBRARY ${DIR_PREFIX}/lib${LIB_SUFFIX}/)
++set (DIR_LIBRARY ${CMAKE_INSTALL_LIBDIR})
+ 
+ if (DEFINED SHARE_INSTALL_PREFIX)
+   set (DIR_SHARE ${SHARE_INSTALL_PREFIX})

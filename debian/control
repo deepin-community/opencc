@@ -1,0 +1,99 @@
+Source: opencc
+Priority: optional
+Maintainer: Deepin Developer <deepin-dev@deepin.org>
+Uploaders: Deepin Packages Builder <packages@deepin.org>
+ Debian Chinese Team <chinese-developers@lists.alioth.debian.org>,
+ Asias He <asias@debian.org>,
+ YunQiang Su <syq@debian.org>,
+ Osamu Aoki <osamu@debian.org>,
+ Aron Xu <aron@debian.org>,
+ xiao sheng wen <atzlinux@sina.com>,
+ Boyuan Yang <byang@debian.org>,
+Build-Depends:
+ cmake,
+ darts,
+ debhelper-compat (= 13),
+ doxygen <!nodoc>,
+ googletest <!nocheck>,
+ libmarisa-dev,
+ libtclap-dev,
+ pkg-kde-tools,
+ pybind11-dev,
+ python3:any,
+ rapidjson-dev,
+Standards-Version: 4.6.0
+Rules-Requires-Root: no
+Section: libs
+Homepage: https://github.com/BYVoid/OpenCC
+
+Package: libopencc-data
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends},
+Breaks:
+ libopencc2-data (<< 1.1.1~),
+Replaces:
+ libopencc2-data (<< 1.1.1~),
+Description: simplified-traditional Chinese conversion library - data files
+ opencc is a library for converting character between traditional Chinese and
+ simplified Chinese.
+ .
+ This package includes the data files.
+
+Package: libopencc-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libopencc1.1 (= ${binary:Version}),
+ ${misc:Depends},
+Suggests:
+ libopencc-doc,
+Description: simplified-traditional Chinese conversion library - development
+ opencc is a library for converting character between traditional Chinese and
+ simplified Chinese.
+ .
+ This package includes the development support files.
+
+Package: libopencc-doc
+Architecture: all
+Multi-Arch: foreign
+Section: doc
+Depends:
+ ${misc:Depends},
+Description: simplified-traditional Chinese conversion library - document
+ opencc is a library for converting character between traditional Chinese and
+ simplified Chinese.
+ .
+ This package includes the library document files.
+
+Package: libopencc1.1
+Architecture: any
+Pre-Depends:
+ ${misc:Pre-Depends},
+Depends:
+ libopencc-data (= ${source:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: simplified-traditional Chinese conversion library - runtime
+ opencc is a library for converting character between traditional Chinese and
+ simplified Chinese.
+ .
+ This package includes the shared library.
+
+Package: opencc
+Section: utils
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ libopencc1.1 (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Suggests:
+ libopencc-doc,
+Description: simplified-traditional Chinese conversion tool
+ opencc is a library for converting character between traditional Chinese and
+ simplified Chinese.
+ .
+ This package includes the conversion tool.

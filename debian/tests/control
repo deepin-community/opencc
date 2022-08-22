@@ -1,0 +1,8 @@
+Tests: integration
+Depends:
+ build-essential,
+ cmake,
+ googletest,
+ pkg-config,
+ @,
+Restrictions: allow-stderr,

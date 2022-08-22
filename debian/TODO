@@ -1,0 +1,4 @@
+* We need to pack nodejs module provided by opencc when possible.
+* The python binding is not packaged. There is a embedded pybind11
+  library that need to be dealt if we want to enable python
+  binding support.

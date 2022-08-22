@@ -1,0 +1,4 @@
+0001-use-cmake-install-libdir.patch
+0003-data-Explicitly-use-python3.patch
+0004-no-remote-images-when-reading-docs-on-disk.patch
+0005-Use-system-googletest.patch
