@@ -9,7 +9,7 @@ Last-Update: 2021-09-18
  1 file changed, 2 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 094a9c7..a9ac2f5 100644
+index 76c2b69..5f9cdcf 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -204,6 +204,8 @@ add_subdirectory(test)

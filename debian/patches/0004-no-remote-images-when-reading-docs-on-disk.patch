@@ -11,7 +11,7 @@ This fixes a privacy breach previously reported as Lintian warnings
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/README.md b/README.md
-index 4af8d37..113773a 100644
+index 7225e01..dbb7fb4 100644
 --- a/README.md
 +++ b/README.md
 @@ -1,14 +1,14 @@

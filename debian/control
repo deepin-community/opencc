@@ -1,7 +1,7 @@
 Source: opencc
 Priority: optional
-Maintainer: Deepin Developer <deepin-dev@deepin.org>
-Uploaders: Deepin Packages Builder <packages@deepin.org>
+Maintainer: Debian Input Method Team <debian-input-method@lists.debian.org>
+Uploaders:
  Debian Chinese Team <chinese-developers@lists.alioth.debian.org>,
  Asias He <asias@debian.org>,
  YunQiang Su <syq@debian.org>,
@@ -21,10 +21,12 @@ Build-Depends:
  pybind11-dev,
  python3:any,
  rapidjson-dev,
-Standards-Version: 4.6.0
+Standards-Version: 4.6.1
 Rules-Requires-Root: no
 Section: libs
 Homepage: https://github.com/BYVoid/OpenCC
+Vcs-Git: https://salsa.debian.org/debian/opencc.git
+Vcs-Browser: https://salsa.debian.org/debian/opencc
 
 Package: libopencc-data
 Architecture: all
