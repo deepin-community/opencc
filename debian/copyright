@@ -11,13 +11,14 @@ Files-Excluded:
  deps/pybind11-*/*
 
 Files: *
-Copyright: 2010-2020, BYVoid <byvoid.kcp@gmail.com>
+Copyright: 2010-2022, BYVoid <byvoid.kcp@gmail.com>
 License: Apache-2
 
 Files: debian/*
 Copyright: 2010, LI Daobing <lidaobing@debian.org>
            2014, Aron Xu <aron@debian.org>
-           2020, xiao sheng wen <atzlinux@sina.com>
+           2020-2021, xiao sheng wen <atzlinux@sina.com>
+           2022, Boyuan Yang <byang@debian.org>
 License: Apache-2
 
 License: Apache-2
