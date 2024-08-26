@@ -1,10 +1,11 @@
 # Open Chinese Convert 開放中文轉換
 
-[![Travis](https://img.shields.io/travis/BYVoid/OpenCC.svg)](https://travis-ci.org/BYVoid/OpenCC)
-[![AppVeyor](https://img.shields.io/appveyor/ci/Carbo/OpenCC.svg)](https://ci.appveyor.com/project/Carbo/OpenCC)
-[![C/C++ CI](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml)
+[![CMake](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml)
+[![Bazel](https://github.com/BYVoid/OpenCC/actions/workflows/bazel.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/bazel.yml)
+[![MSVC](https://github.com/BYVoid/OpenCC/actions/workflows/msvc.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/msvc.yml)
 [![Node.js CI](https://github.com/BYVoid/OpenCC/actions/workflows/nodejs.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/nodejs.yml)
 [![Python CI](https://github.com/BYVoid/OpenCC/actions/workflows/python.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/python.yml)
+[![AppVeyor](https://img.shields.io/appveyor/ci/Carbo/OpenCC.svg)](https://ci.appveyor.com/project/Carbo/OpenCC)
 
 ## Introduction 介紹
 
@@ -26,7 +27,21 @@ Discussion (Telegram): https://t.me/open_chinese_convert
 
 ## Installation 安裝
 
-See [Download](https://github.com/BYVoid/OpenCC/wiki/Download).
+### Package Managers 包管理器
+
+* [Debian](https://tracker.debian.org/pkg/opencc)
+* [Ubuntu](https://launchpad.net/ubuntu/+source/opencc)
+* [Fedora](https://packages.fedoraproject.org/pkgs/opencc/opencc/)
+* [Arch Linux](https://archlinux.org/packages/extra/x86_64/opencc/)
+* [Mac](https://formulae.brew.sh/formula/opencc)
+* [Bazel](https://registry.bazel.build/modules/opencc)
+* [Node.js](https://npmjs.org/package/opencc)
+* [Python](https://pypi.org/project/OpenCC/)
+
+### Prebuilt 預編譯
+
+* Windows (x86_64): [Latest build](https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x64)
+* Windows (x86): [Latest build](https://ci.appveyor.com/api/projects/Carbo/opencc/artifacts/OpenCC.zip?branch=master&job=Environment:%20nodejs_version=none;%20Platform:%20x86)
 
 ## Usage 使用
 
@@ -63,7 +78,7 @@ See [demo.js](https://github.com/BYVoid/OpenCC/blob/master/node/demo.js) and [ts
 
 ### Python
 
-[PyPI](https://pypi.org/project/OpenCC/) `pip install opencc` (Windows, Linux, Mac)
+`pip install opencc` (Windows, Linux, Mac)
 
 ```python
 import opencc
@@ -77,11 +92,13 @@ converter.convert('汉字')  # 漢字
 #include "opencc.h"
 
 int main() {
-  const SimpleConverter converter("s2t.json");
+  const opencc::SimpleConverter converter("s2t.json");
   converter.Convert("汉字");  // 漢字
   return 0;
 }
 ```
+
+[Full example with Bazel](https://github.com/BYVoid/opencc-bazel-example)
 
 ### C
 
@@ -118,6 +135,7 @@ Document 文檔: https://byvoid.github.io/OpenCC/
 * WebAssembly: [wasm-opencc](https://github.com/oyyd/wasm-opencc)
 * Browser Extension: [opencc-extension](https://github.com/tnychn/opencc-extension)
 * Go (Pure): [OpenCC for Go](https://github.com/longbridgeapp/opencc)
+* Dart (native-assets): [opencc-dart](https://github.com/lindeer/opencc-dart)
 
 ### Configurations 配置文件
 
@@ -154,6 +172,13 @@ make
 
 ```bash
 build.cmd
+```
+
+### Build with Bazel
+
+```bash
+bazel build //:opencc
+bazel test --test_output=all //src/... //data/... //test/...
 ```
 
 ### Test 測試
@@ -203,6 +228,8 @@ Example results (from Github CI):
 ```
 
 ## Projects using OpenCC 使用 OpenCC 的項目
+
+Please update if your project is using OpenCC.
 
 * [ibus-pinyin](https://github.com/ibus/ibus-pinyin)
 * [fcitx](https://github.com/fcitx/fcitx)

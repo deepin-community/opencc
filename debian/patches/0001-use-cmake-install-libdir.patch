@@ -4,21 +4,16 @@ Subject: use-cmake-install-libdir
 
 Update 2021-09-18: Also use GNUInstallDirs.
 
-Last-Update: 2021-09-18
+Last-Update: 2024-07-28
 ---
- CMakeLists.txt | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ CMakeLists.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d2ae987..76c2b69 100644
+index 3393613..6db5fa1 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -17,10 +17,11 @@
- #
- 
- ######## Project settings
--cmake_minimum_required(VERSION 2.8)
-+cmake_minimum_required(VERSION 3.0.2)
+@@ -21,6 +21,7 @@ cmake_minimum_required(VERSION 3.5)
  set (PACKAGE_NAME opencc)
  project (${PACKAGE_NAME} CXX)
  include (CTest)
@@ -26,11 +21,11 @@ index d2ae987..76c2b69 100644
  
  ######## Options
  option(BUILD_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
-@@ -80,7 +81,7 @@ set (DIR_PREFIX ${CMAKE_INSTALL_PREFIX})
- set (DIR_INCLUDE ${DIR_PREFIX}/include/)
- set (DIR_SHARE ${DIR_PREFIX}/share/)
- set (DIR_ETC ${DIR_PREFIX}/etc/)
--set (DIR_LIBRARY ${DIR_PREFIX}/lib${LIB_SUFFIX}/)
+@@ -82,7 +83,7 @@ set (DIR_PREFIX ${CMAKE_INSTALL_PREFIX})
+ set (DIR_INCLUDE ${DIR_PREFIX}/include)
+ set (DIR_SHARE ${DIR_PREFIX}/share)
+ set (DIR_ETC ${DIR_PREFIX}/etc)
+-set (DIR_LIBRARY ${DIR_PREFIX}/lib${LIB_SUFFIX})
 +set (DIR_LIBRARY ${CMAKE_INSTALL_LIBDIR})
  
  if (DEFINED SHARE_INSTALL_PREFIX)

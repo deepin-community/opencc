@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import glob
 import sys
@@ -10,8 +10,8 @@ if len(sys.argv) < 2:
     print(("Usage: ", sys.argv[0], "[directory]"))
     exit(1)
 
-dirtectory = sys.argv[1]
-files = glob.glob(dirtectory + "/*")
+directory = sys.argv[1]
+files = glob.glob(directory + "/*.txt")
 for filename in files:
     print(filename)
     sort_items(filename, filename)

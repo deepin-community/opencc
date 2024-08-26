@@ -17,7 +17,7 @@
 #
 
 ######## Project settings
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 set (PACKAGE_NAME opencc)
 project (${PACKAGE_NAME} CXX)
 include (CTest)
@@ -38,11 +38,11 @@ option(USE_SYSTEM_RAPIDJSON "Use system version of RapidJSON" OFF)
 option(USE_SYSTEM_TCLAP "Use system version of TCLAP" OFF)
 
 ######## Package information
-set (PACKAGE_URL https://github.com/BYVoid/Opencc)
-set (PACKAGE_BUGREPORT https://github.com/BYVoid/Opencc/issues)
+set (PACKAGE_URL https://github.com/BYVoid/OpenCC)
+set (PACKAGE_BUGREPORT https://github.com/BYVoid/OpenCC/issues)
 set (OPENCC_VERSION_MAJOR 1)
 set (OPENCC_VERSION_MINOR 1)
-set (OPENCC_VERSION_REVISION 4)
+set (OPENCC_VERSION_REVISION 9)
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   set (version_suffix .Debug)
@@ -57,7 +57,7 @@ set(CPACK_SOURCE_PACKAGE_FILE_NAME
   "${PACKAGE_NAME}-${OPENCC_VERSION_MAJOR}.${OPENCC_VERSION_MINOR}.${OPENCC_VERSION_REVISION}"
 )
 set(CPACK_SOURCE_IGNORE_FILES
-  "/build/;/test/dict.ocd;/test/dict.txt;/test/dict.bin;/other/;/opencc.xcodeproj/;/.git/;.gitignore;~$;.pyc;${CPACK_SOURCE_IGNORE_FILES}"
+  "/build/;/test/dict.ocd;/test/dict.txt;/test/dict.bin;/other/;/opencc.xcodeproj/;/.git/;.gitignore;~$;.pyc;/bazel*;/node_modules;/.github;/.pytest_cache;/.vscode;${CPACK_SOURCE_IGNORE_FILES}"
 )
 include(CPack)
 
@@ -72,15 +72,17 @@ include(CPack)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(CMAKE_MACOSX_RPATH 1)
+    set(CMAKE_CXX_STANDARD 14)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
 ######## Directory
 
 set (DIR_PREFIX ${CMAKE_INSTALL_PREFIX})
-set (DIR_INCLUDE ${DIR_PREFIX}/include/)
-set (DIR_SHARE ${DIR_PREFIX}/share/)
-set (DIR_ETC ${DIR_PREFIX}/etc/)
-set (DIR_LIBRARY ${DIR_PREFIX}/lib${LIB_SUFFIX}/)
+set (DIR_INCLUDE ${DIR_PREFIX}/include)
+set (DIR_SHARE ${DIR_PREFIX}/share)
+set (DIR_ETC ${DIR_PREFIX}/etc)
+set (DIR_LIBRARY ${DIR_PREFIX}/lib${LIB_SUFFIX})
 
 if (DEFINED SHARE_INSTALL_PREFIX)
   set (DIR_SHARE ${SHARE_INSTALL_PREFIX})
@@ -98,10 +100,14 @@ if (DEFINED LIB_INSTALL_DIR)
   set (DIR_LIBRARY ${LIB_INSTALL_DIR})
 endif (DEFINED LIB_INSTALL_DIR)
 
-set (DIR_SHARE_OPENCC ${DIR_SHARE}/opencc/)
-set (DIR_SHARE_LOCALE ${DIR_SHARE}/locale/)
+set (DIR_SHARE_OPENCC ${DIR_SHARE}/opencc)
+set (DIR_SHARE_LOCALE ${DIR_SHARE}/locale)
 
 ######## Configuration
+
+include(CMakePackageConfigHelpers)
+
+set(targets_export_name OpenCCTargets)
 
 configure_file(
   opencc.pc.in
@@ -111,9 +117,30 @@ configure_file(
 
 install(
   FILES
-    ${CMAKE_BINARY_DIR}/opencc.pc
+    ${CMAKE_CURRENT_BINARY_DIR}/opencc.pc
   DESTINATION
     ${DIR_LIBRARY}/pkgconfig
+)
+
+write_basic_package_version_file(
+  OpenCCConfigVersion.cmake
+  VERSION ${OPENCC_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+
+configure_package_config_file(
+  OpenCCConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/OpenCCConfig.cmake
+  INSTALL_DESTINATION ${DIR_LIBRARY}/cmake/opencc
+  PATH_VARS DIR_INCLUDE
+)
+
+install(
+  FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/OpenCCConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/OpenCCConfigVersion.cmake
+  DESTINATION
+    ${DIR_LIBRARY}/cmake/opencc
 )
 
 ######## Compiler flags
@@ -202,7 +229,7 @@ add_subdirectory(test)
 
 if (ENABLE_GTEST)
   if(NOT USE_SYSTEM_GTEST)
-    add_subdirectory(deps/gtest-1.11.0)
+    add_subdirectory(deps/googletest-1.15.0)
   endif()
   enable_testing()
 endif()
@@ -221,7 +248,7 @@ if (BUILD_PYTHON)
   if(USE_SYSTEM_PYBIND11)
     find_package(pybind11 CONFIG)
   else()
-    add_subdirectory(deps/pybind11-2.5.0)
+    add_subdirectory(deps/pybind11-2.13.1)
   endif()
   pybind11_add_module(opencc_clib src/py_opencc.cpp)
   target_link_libraries(opencc_clib PRIVATE libopencc)

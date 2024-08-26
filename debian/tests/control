@@ -3,6 +3,6 @@ Depends:
  build-essential,
  cmake,
  googletest,
- pkg-config,
+ pkgconf,
  @,
 Restrictions: allow-stderr,

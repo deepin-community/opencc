@@ -1,0 +1,29 @@
+From: Gunnar Hjalmarsson <gunnarhj@ubuntu.com>
+Date: Sun, 28 Jul 2024 19:42:55 -0400
+Subject: Don't fetch remote images when reading docs on disk
+
+This fixes a privacy breach previously reported as Lintian warnings
+
+Forwarded: not-needed
+Last-Update: 2024-07-28
+---
+ README.md | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/README.md b/README.md
+index e4edffb..cc22afd 100644
+--- a/README.md
++++ b/README.md
+@@ -1,12 +1,5 @@
+ # Open Chinese Convert 開放中文轉換
+ 
+-[![CMake](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/cmake.yml)
+-[![Bazel](https://github.com/BYVoid/OpenCC/actions/workflows/bazel.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/bazel.yml)
+-[![MSVC](https://github.com/BYVoid/OpenCC/actions/workflows/msvc.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/msvc.yml)
+-[![Node.js CI](https://github.com/BYVoid/OpenCC/actions/workflows/nodejs.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/nodejs.yml)
+-[![Python CI](https://github.com/BYVoid/OpenCC/actions/workflows/python.yml/badge.svg)](https://github.com/BYVoid/OpenCC/actions/workflows/python.yml)
+-[![AppVeyor](https://img.shields.io/appveyor/ci/Carbo/OpenCC.svg)](https://ci.appveyor.com/project/Carbo/OpenCC)
+-
+ ## Introduction 介紹
+ 
+ ![OpenCC](https://opencc.byvoid.com/img/opencc.png)
