@@ -10,23 +10,33 @@ Uploaders:
  xiao sheng wen <atzlinux@sina.com>,
  Boyuan Yang <byang@debian.org>,
 Build-Depends:
+ chrpath,
  cmake,
  darts,
  debhelper-compat (= 13),
+ dh-sequence-python3,
  doxygen <!nodoc>,
  googletest <!nocheck>,
  libmarisa-dev,
  libtclap-dev,
- pkg-kde-tools,
+ opencc <cross>,
+ dh-sequence-pkgkde-symbolshelper,
  pybind11-dev,
- python3:any,
+ python3-dev,
  rapidjson-dev,
-Standards-Version: 4.6.1
+ pybuild-plugin-pyproject,
+ python3-pytest <!nocheck>,
+ python3-setuptools,
+ python3-wheel,
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
 Section: libs
 Homepage: https://github.com/BYVoid/OpenCC
 Vcs-Git: https://salsa.debian.org/debian/opencc.git
 Vcs-Browser: https://salsa.debian.org/debian/opencc
+Description: simplified-traditional Chinese conversion library
+ opencc is a library for converting character between traditional Chinese and
+ simplified Chinese.
 
 Package: libopencc-data
 Architecture: all
@@ -37,9 +47,8 @@ Breaks:
  libopencc2-data (<< 1.1.1~),
 Replaces:
  libopencc2-data (<< 1.1.1~),
-Description: simplified-traditional Chinese conversion library - data files
- opencc is a library for converting character between traditional Chinese and
- simplified Chinese.
+Description: ${source:Synopsis} - data files
+ ${source:Extended-Description}
  .
  This package includes the data files.
 
@@ -52,9 +61,8 @@ Depends:
  ${misc:Depends},
 Suggests:
  libopencc-doc,
-Description: simplified-traditional Chinese conversion library - development
- opencc is a library for converting character between traditional Chinese and
- simplified Chinese.
+Description: ${source:Synopsis} - development
+ ${source:Extended-Description}
  .
  This package includes the development support files.
 
@@ -64,9 +72,8 @@ Multi-Arch: foreign
 Section: doc
 Depends:
  ${misc:Depends},
-Description: simplified-traditional Chinese conversion library - document
- opencc is a library for converting character between traditional Chinese and
- simplified Chinese.
+Description: ${source:Synopsis} - document
+ ${source:Extended-Description}
  .
  This package includes the library document files.
 
@@ -78,9 +85,8 @@ Depends:
  libopencc-data (= ${source:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
-Description: simplified-traditional Chinese conversion library - runtime
- opencc is a library for converting character between traditional Chinese and
- simplified Chinese.
+Description: ${source:Synopsis} - runtime
+ ${source:Extended-Description}
  .
  This package includes the shared library.
 
@@ -95,7 +101,18 @@ Depends:
 Suggests:
  libopencc-doc,
 Description: simplified-traditional Chinese conversion tool
- opencc is a library for converting character between traditional Chinese and
- simplified Chinese.
+ ${source:Extended-Description}
  .
  This package includes the conversion tool.
+
+Package: python3-opencc
+Section: python
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ ${shlibs:Depends},
+Description: ${source:Synopsis} - Python 3.x
+ ${source:Extended-Description}
+ .
+ This package provides the Python 3.x module.

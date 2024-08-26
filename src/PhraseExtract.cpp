@@ -57,7 +57,7 @@ public:
     marisa::Agent agent;
     agent.set_query(key.CString(), key.ByteLength());
     if (marisa_trie.lookup(agent)) {
-      int item_id = marisa_id_item_map[agent.key().id()];
+      size_t item_id = marisa_id_item_map[agent.key().id()];
       return items[item_id].second;
     }
 
@@ -99,7 +99,7 @@ private:
   }
 
   void BuildTrie() {
-    std::unordered_map<std::string, int> key_item_id_map;
+    std::unordered_map<std::string, size_t> key_item_id_map;
     marisa::Keyset keyset;
     for (size_t i = 0; i < items.size(); i++) {
       const auto& key = items[i].first;
@@ -117,7 +117,7 @@ private:
       if (it == key_item_id_map.end()) {
         throw ShouldNotBeHere();
       }
-      int item_id = it->second;
+      size_t item_id = it->second;
       marisa_id_item_map[marisa_id] = item_id;
     }
   }
@@ -127,7 +127,7 @@ private:
       dict;
   std::vector<ItemType> items;
   marisa::Trie marisa_trie;
-  std::vector<int> marisa_id_item_map;
+  std::vector<size_t> marisa_id_item_map;
 };
 
 using namespace internal;

@@ -12,21 +12,25 @@ bash ${MINICONDA_FILENAME} -b -f -p $HOME/miniconda3
 export PATH=$HOME/miniconda3/bin:$PATH
 eval "$(conda shell.bash hook)"
 
-for VERSION in 3.7 3.8 3.9 3.10; do
+for VERSION in 3.8 3.9 3.10 3.11 3.12; do
     # Create and activate environment
+    conda config --add channels conda-forge
+    conda config --set channel_priority strict
     conda create -y -n py$VERSION python=$VERSION
     conda activate py$VERSION
 
     # Build and package
-    pip install --no-cache-dir setuptools wheel
-    python setup.py build_ext bdist_wheel
+    pip install --no-cache-dir build
+    python -m build --wheel
 
     # Cleanup
     conda deactivate
-    rm -rf build python/opencc/clib OpenCC.egg-info
+    rm -rf build OpenCC.egg-info
 done
 
-# Upload to PyPI
-conda activate py3.8
-python -m pip install twine
-python -m twine upload dist/*
+if [ "$1" != "testonly" ]; then
+    # Upload to PyPI
+    conda activate py3.8
+    python -m pip install twine
+    python -m twine upload dist/*
+fi

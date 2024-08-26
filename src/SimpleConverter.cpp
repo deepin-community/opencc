@@ -16,33 +16,69 @@
  * limitations under the License.
  */
 
-#ifdef _MSC_VER
-#define NOMINMAX
-#include <Windows.h>
-#undef NOMINMAX
-#endif // _MSC_VER
-
 #include "Config.hpp"
 #include "Converter.hpp"
 #include "UTF8Util.hpp"
 #include "opencc.h"
 
+#ifdef BAZEL
+#include "tools/cpp/runfiles/runfiles.h"
+using bazel::tools::cpp::runfiles::Runfiles;
+#endif
+
 using namespace opencc;
+
+namespace {
 
 struct InternalData {
   const ConverterPtr converter;
 
   InternalData(const ConverterPtr& _converter) : converter(_converter) {}
+
+  static InternalData* NewInternalData(const std::string& configFileName,
+                                       const std::vector<std::string>& paths,
+                                       const char* argv0) {
+    try {
+      Config config;
+#ifdef BAZEL
+      std::string err;
+      std::unique_ptr<Runfiles> bazel_runfiles(
+          Runfiles::Create(argv0 != nullptr ? argv0 : "", &err));
+      if (bazel_runfiles != nullptr) {
+        std::vector<std::string> paths_with_runfiles = paths;
+        paths_with_runfiles.push_back(
+            bazel_runfiles->Rlocation("opencc~/data/config"));
+        paths_with_runfiles.push_back(
+            bazel_runfiles->Rlocation("opencc~/data/dictionary"));
+        paths_with_runfiles.push_back(
+            bazel_runfiles->Rlocation("_main/data/config"));
+        paths_with_runfiles.push_back(
+            bazel_runfiles->Rlocation("_main/data/dictionary"));
+        return new InternalData(
+            config.NewFromFile(configFileName, paths_with_runfiles, argv0));
+      }
+#endif
+      return new InternalData(config.NewFromFile(configFileName, paths, argv0));
+    } catch (Exception& ex) {
+      throw std::runtime_error(ex.what());
+    }
+  }
 };
 
-SimpleConverter::SimpleConverter(const std::string& configFileName) {
-  try {
-    Config config;
-    internalData = new InternalData(config.NewFromFile(configFileName));
-  } catch (Exception& ex) {
-    throw std::runtime_error(ex.what());
-  }
-}
+} // namespace
+
+SimpleConverter::SimpleConverter(const std::string& configFileName)
+    : SimpleConverter(configFileName, std::vector<std::string>()) {}
+
+SimpleConverter::SimpleConverter(const std::string& configFileName,
+                                 const std::vector<std::string>& paths)
+    : SimpleConverter(configFileName, paths, nullptr) {}
+
+SimpleConverter::SimpleConverter(const std::string& configFileName,
+                                 const std::vector<std::string>& paths,
+                                 const char* argv0)
+    : internalData(
+          InternalData::NewInternalData(configFileName, paths, argv0)) {}
 
 SimpleConverter::~SimpleConverter() { delete (InternalData*)internalData; }
 

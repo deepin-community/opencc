@@ -1,3 +1,4 @@
+.bazelversion
 .npmignore
 .gitignore
 CMakeLists.txt
@@ -5,21 +6,25 @@ CMakeLists.txt
 *.pyc
 *.cmd
 *.tgz
+*.bazel
 
 /.github
 /.vscode
 /.appveyor.yml
 /.clang-format
 /.travis.yml
+/bazel-*
 /Makefile
 /src/*Test.cpp
 /src/*TestBase.cpp
 /doc
 /data/scheme
+/data/scripts
 /deps/google-benchmark
-/deps/gtest*
+/deps/googletest*
 /deps/pybind*
 /deps/tclap*
+/bazel-*
 /build
 /debug
 /dist
