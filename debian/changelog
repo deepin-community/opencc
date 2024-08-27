@@ -1,3 +1,9 @@
+opencc (1.1.4+ds1-4deepin1) unstable; urgency=medium
+
+  * Normalize ver2 (XdeepinY).
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Tue, 27 Aug 2024 16:05:05 +0800
+
 opencc (1.1.4+ds1-4deepin) unstable; urgency=medium
 
   * Regulate version name
