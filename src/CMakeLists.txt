@@ -10,7 +10,7 @@ if(NOT USE_SYSTEM_RAPIDJSON)
   include_directories(../deps/rapidjson-1.1.0)
 endif()
 if(NOT USE_SYSTEM_TCLAP)
-  include_directories(../deps/tclap-1.2.2)
+  include_directories(../deps/tclap-1.2.5)
 endif()
 
 # Library
@@ -85,7 +85,7 @@ set(UNITTESTS
 if (ENABLE_DARTS)
   set(OPENCC_ENABLE_DARTS 1)
   if(NOT USE_SYSTEM_DARTS)
-    include_directories(../deps/darts-clone)
+    include_directories(../deps/darts-clone-0.32)
   endif()
   set(
     LIBOPENCC_HEADERS
@@ -112,9 +112,14 @@ configure_file(
   "${PROJECT_BINARY_DIR}/src/opencc_config.h")
 
 add_library(libopencc ${LIBOPENCC_SOURCES} ${LIBOPENCC_HEADERS})
+add_library(OpenCC::OpenCC ALIAS libopencc)
 set_target_properties(libopencc PROPERTIES POSITION_INDEPENDENT_CODE ON)
 source_group(libopencc FILES ${LIBOPENCC_SOURCES} ${LIBOPENCC_HEADERS})
 target_link_libraries(libopencc marisa)
+target_include_directories(libopencc PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${DIR_INCLUDE}/opencc>
+)
 
 GENERATE_EXPORT_HEADER(
   libopencc
@@ -131,19 +136,34 @@ set_target_properties(
       CXX
     OUTPUT_NAME
       opencc
+    EXPORT_NAME
+      OpenCC
     VERSION
-      1.1.3
+      ${OPENCC_VERSION_MAJOR}.${OPENCC_VERSION_MINOR}.${OPENCC_VERSION_REVISION}
     SOVERSION
-      1.1
+      ${OPENCC_VERSION_MAJOR}.${OPENCC_VERSION_MINOR}
 )
 
 # Installation
 
+if (USE_SYSTEM_MARISA)
+  set(INSTALL_TARGETS libopencc)
+else()
+  set(INSTALL_TARGETS libopencc marisa)
+endif()
+
 install(
-  TARGETS libopencc
+  TARGETS ${INSTALL_TARGETS} EXPORT ${targets_export_name}
   LIBRARY DESTINATION ${DIR_LIBRARY}
   ARCHIVE DESTINATION ${DIR_LIBRARY}
   RUNTIME DESTINATION bin
+)
+
+install(
+  EXPORT ${targets_export_name}
+  FILE ${targets_export_name}.cmake
+  DESTINATION ${DIR_LIBRARY}/cmake/opencc
+  NAMESPACE OpenCC::
 )
 
 install(

@@ -11,12 +11,13 @@ include /usr/share/dpkg/architecture.mk
 # Disable parallel build to circumvent some random build error
 # (needs further investigation)
 %:
-	dh $@ --buildsystem=cmake --with pkgkde_symbolshelper --no-parallel
+	dh $@ --buildsystem=cmake --no-parallel
 
 BUILD_OPTIONS = \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)/ \
     -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_PYTHON=ON \
     -DUSE_SYSTEM_DARTS=ON \
     -DUSE_SYSTEM_GTEST=ON \
     -DUSE_SYSTEM_MARISA=ON \
@@ -38,6 +39,22 @@ endif
 
 override_dh_auto_configure:
 	dh_auto_configure -- $(BUILD_OPTIONS)
+
+execute_after_dh_auto_build:
+	dh_auto_build -O--buildsystem=pybuild -- -s pyproject --after-build \
+		"cp obj-$(DEB_BUILD_GNU_TYPE)/opencc_clib.*.so {build_dir}/opencc/clib/"
+
+execute_after_dh_auto_test:
+	# TODO: Correctly test Python build for opencc 1.1.9+
+	-dh_auto_test -O--buildsystem=pybuild -- -s pyproject
+
+execute_after_dh_auto_install:
+	dh_auto_install -O--buildsystem=pybuild -- -s pyproject
+	chrpath --delete debian/tmp/usr/lib/*/dist-packages/opencc/clib/*.so
+	for i in debian/tmp/usr/lib/*/dist-packages/opencc/clib/; do \
+		mkdir -p $$i/share/; \
+		ln -sf ../../../../../../share/opencc $$i/share/; \
+	done
 
 execute_after_dh_auto_clean:
 	find . -name *.pyc -delete
