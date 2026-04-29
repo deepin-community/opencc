@@ -1,3 +1,9 @@
+opencc (1.1.9+ds1-1deepin1) unstable; urgency=medium
+
+  * Fix CVE-2025-15536: heap buffer overflow in UTF-8 processing
+
+ -- deepin-ci-robot <packages@deepin.org>  Wed, 29 Apr 2026 19:47:21 +0800
+
 opencc (1.1.9+ds1-1deepin0) unstable; urgency=medium
 
   * No source change upload against GCC 12.
